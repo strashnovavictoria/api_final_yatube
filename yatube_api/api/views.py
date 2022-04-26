@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework import filters
-from posts.models import Group, Post, Follow, User
+from posts.models import Group, Post
 from .serializers import PostSerializer, GroupSerializer
 from .serializers import CommentSerializer, FollowSerializer
 from rest_framework import permissions
