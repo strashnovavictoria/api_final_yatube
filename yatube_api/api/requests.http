@@ -1,0 +1,111 @@
+@baseUrl = http://127.0.0.1:8000
+@api=api/v1
+@contentType = application/json
+@authToken = d9d6062fc370782079b5a09fba8bfad9f76205d5
+​
+​
+​
+### передаём логин и пароль, получаем токен,
+#   который нужно сохранить в @authToken
+POST {{baseUrl}}/{{api}}/api-token-auth/
+Content-Type: {{contentType}}
+​
+{
+    "username": "admin",
+    "password": "admin"
+}
+​
+​
+### получаем список всех постов или создаём новый пост.
+@groupId = 1
+@authorId = 3
+GET {{baseUrl}}/{{api}}/posts/
+Authorization: Token {{authToken}}
+###
+POST {{baseUrl}}/{{api}}/posts/
+Authorization: Token {{authToken}}
+Content-Type: {{contentType}}
+​
+{
+    "text": "text",
+    "author": {{authorId}},
+    "group": {{groupId}}
+}
+​
+​
+### получаем, редактируем или удаляем пост по id
+@postId = 5
+GET {{baseUrl}}/{{api}}/posts/{{postId}}/
+Authorization: Token {{authToken}}
+###
+PUT {{baseUrl}}/{{api}}/posts/{{postId}}/
+Authorization: Token {{authToken}}
+Content-Type: {{contentType}}
+​
+{
+    "text": "text",
+    "author": {{authorId}},
+    "group": {{groupId}}
+}
+###
+PATCH {{baseUrl}}/{{api}}/posts/{{postId}}/
+Authorization: Token {{authToken}}
+Content-Type: {{contentType}}
+​
+{
+    "text": "text",
+    "author": {{authorId}},
+    "group": {{groupId}}
+}
+###
+DELETE {{baseUrl}}/{{api}}/posts/{{postId}}/
+Authorization: Token {{authToken}}
+​
+​
+### получаем список всех групп
+GET {{baseUrl}}/{{api}}/groups/
+Authorization: Token {{authToken}}
+### получаем информацию о группе по id
+GET {{baseUrl}}/{{api}}/groups/{{groupId}}/
+Authorization: Token {{authToken}}
+​
+​
+### получаем список всех комментариев поста с id=postId или создаём новый, 
+#   указав id поста, который хотим прокомментировать
+GET {{baseUrl}}/{{api}}/posts/{{postId}}/comments/
+Authorization: Token {{authToken}}
+###
+POST {{baseUrl}}/{{api}}/posts/{{postId}}/comments/
+Authorization: Token {{authToken}}
+Content-Type: {{contentType}}
+​
+{
+    "post": {{postId}},
+    "text": "comment"
+}
+​
+### получаем, редактируем или удаляем комментарий по id у поста с id=postId
+@commentsId = 6
+GET  {{baseUrl}}/{{api}}/posts/{{postId}}/comments/{{commentsId}}/
+Authorization: Token {{authToken}}
+###
+PUT   {{baseUrl}}/{{api}}/posts/{{postId}}/comments/{{commentsId}}/
+Authorization: Token {{authToken}}
+Content-Type: {{contentType}}
+​
+{
+    "post": {{postId}},
+    "text": "comment1"
+}
+###
+PATCH   {{baseUrl}}/{{api}}/posts/{{postId}}/comments/{{commentsId}}/
+Authorization: Token {{authToken}}
+Content-Type: {{contentType}}
+​
+{
+    "post": {{postId}},
+    "text": "comment2"
+}
+###
+DELETE  {{baseUrl}}/{{api}}/posts/{{postId}}/comments/{{commentsId}}/
+Authorization: Token {{authToken}}
