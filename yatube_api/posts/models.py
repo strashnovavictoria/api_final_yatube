@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
-from django.db.models.constraints import UniqueConstraint
 from django.db import models
+from django.db.models.constraints import UniqueConstraint
 
 User = get_user_model()
 
@@ -26,8 +26,12 @@ class Post(models.Model):
         upload_to='posts/', null=True, blank=True)
     group = models.ForeignKey(
         Group, on_delete=models.SET_NULL,
-        related_name="posts_group", blank=True, null=True
+        related_name="posts", blank=True, null=True
     )
+
+    class Meta:
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
 
     def __str__(self):
         return self.text
@@ -47,6 +51,8 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-created']
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
 
 
 class Follow(models.Model):
@@ -64,3 +70,7 @@ class Follow(models.Model):
         fields=['user', 'following'],
         name='unique_following',
     )
+
+    class Meta:
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'

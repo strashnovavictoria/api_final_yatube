@@ -1,15 +1,14 @@
-from requests import Response
 from django.shortcuts import get_object_or_404
-from rest_framework.views import PermissionDenied
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework import viewsets
-from rest_framework import filters
-from posts.models import Group, Post
-from .serializers import PostSerializer, GroupSerializer
-from .serializers import CommentSerializer, FollowSerializer
-from rest_framework import permissions
+from requests import Response
+from rest_framework import filters, permissions, status, viewsets
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.response import Response
+from rest_framework.views import PermissionDenied
+from rest_framework import mixins
+
+from posts.models import Group, Post
+from .serializers import (CommentSerializer, FollowSerializer, GroupSerializer,
+                          PostSerializer)
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -62,7 +61,13 @@ class CommentViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class FollowViewSet(viewsets.ModelViewSet):
+class CreateRetrieveViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
+                            mixins.CreateModelMixin, viewsets.GenericViewSet):
+
+    pass
+
+
+class FollowViewSet(CreateRetrieveViewSet):
 
     serializer_class = FollowSerializer
     permission_classes = (permissions.IsAuthenticated, )
