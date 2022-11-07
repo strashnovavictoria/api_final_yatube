@@ -7,7 +7,7 @@
 ## **Установка**
 Клонировать репозиторий и перейти в него в командной строке:
 ```text
-git clone https://github.com/Orion-87/api_final_yatube.git
+git clone https://github.com/strashnovavictoria/api_final_yatube.git
 ```
 ```text
 cd api_final_yatube
